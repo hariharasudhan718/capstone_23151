@@ -47,3 +47,6 @@ WITH source_data AS (
          LATERAL FLATTEN(input => e.value:order_items) AS i
 )
 SELECT * FROM source_data
+{% if is_incremental() %}
+  WHERE created_at > (SELECT MAX(created_at) FROM {{ this }})
+{% endif %}

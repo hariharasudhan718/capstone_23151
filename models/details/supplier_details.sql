@@ -46,3 +46,6 @@ WITH source_data AS (
          LATERAL FLATTEN(input => e.value:categories_supplied) AS c
 )
 SELECT * FROM source_data
+{% if is_incremental() %}
+  WHERE last_modified_date > (SELECT MAX(last_modified_date) FROM {{ this }})
+{% endif %}

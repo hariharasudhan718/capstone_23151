@@ -35,3 +35,6 @@ WITH source_data AS (
          LATERAL FLATTEN(input => json_data:customers_data) AS e
 )
 SELECT * FROM source_data
+{% if is_incremental() %}
+  WHERE last_modified_date > (SELECT MAX(last_modified_date) FROM {{ this }})
+{% endif %}
