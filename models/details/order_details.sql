@@ -3,7 +3,10 @@
   config(
     materialized = 'incremental',
     unique_key='order_id',
-    schema = 'raw_bronze'
+    schema = 'raw_bronze',
+    
+incremental_strategy='merge'
+
   )
 }}
 WITH source_data AS (

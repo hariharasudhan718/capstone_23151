@@ -5,7 +5,8 @@
     unique_key='product_id',
     constraints={
         'primary_key': ['product_id']
-    }
+    },
+    incremental_strategy='merge'
 ) }}
 select 
     SUBSTRING(product_id, 5, LENGTH(product_id))::integer AS product_id,

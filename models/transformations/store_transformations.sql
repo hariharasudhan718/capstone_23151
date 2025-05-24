@@ -1,6 +1,6 @@
 {{
     config(materialized='incremental', unique_key='store_id',constraints={
-            'primary_key':['store_id']})
+            'primary_key':['store_id']},incremental_strategy='merge')
 }}
 SELECT 
     SUBSTRING(store_id, 6, LENGTH(store_id))::integer AS store_id,

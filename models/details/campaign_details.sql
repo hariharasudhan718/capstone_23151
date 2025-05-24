@@ -1,9 +1,11 @@
 -- models/campaign_details.sql
 {{
   config(
+    
     materialized = 'incremental',
     unique_key='campaign_id',
-    schema = 'raw_bronze'
+    schema = 'raw_bronze',
+    incremental_strategy='merge'
   )
 }}
 WITH source_data AS (

@@ -9,7 +9,8 @@
         unique_key='customer_id',
         constraints={
             'primary_key':['customer_id']
-        }              
+        },
+        incremental_strategy='merge'              
     )
 }}
 SELECT 

@@ -1,7 +1,7 @@
 {{
   config(
-    materialized = 'incremental',
-        schema='gold_layer'
+    materialized = 'table',
+        schema='gold_layer',
   )
 }}
  

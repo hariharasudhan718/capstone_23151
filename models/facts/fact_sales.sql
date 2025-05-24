@@ -1,6 +1,6 @@
 {{
   config(
-    materialized = 'incremental',
+    materialized = 'table',
     schema = 'gold_layer'
   )
 }}
@@ -28,14 +28,14 @@ SELECT
 FROM 
     silver_layer.order_transformations o 
 JOIN 
-    silver_layer_gold_layer.dim_customer cu ON o.customer_id = cu.customer_id
+    gold_layer.dim_customer cu ON o.customer_id = cu.customer_id
 JOIN
-    silver_layer_gold_layer.dim_marketing_campaign ca ON ca.campaign_id = o.campaign_id
+    gold_layer.dim_marketing_campaign ca ON ca.campaign_id = o.campaign_id
 JOIN 
-    silver_layer_gold_layer.dim_employee e ON e.employee_id = o.employee_id
+    gold_layer.dim_employee e ON e.employee_id = o.employee_id
 JOIN 
-    silver_layer_gold_layer.dim_product p ON p.product_id = o.product_id
+    gold_layer.dim_product p ON p.product_id = o.product_id
 JOIN 
-    silver_layer_gold_layer.dim_store st ON st.store_id = o.store_id
+    gold_layer.dim_store st ON st.store_id = o.store_id
 JOIN
-    silver_layer_gold_layer.dim_date d ON DATE_TRUNC('day', o.order_date) = d.FullDate
+    gold_layer.dim_date d ON DATE_TRUNC('day', o.order_date) = d.FullDate

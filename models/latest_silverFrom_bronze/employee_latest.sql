@@ -1,6 +1,7 @@
 {{ config(
     materialized='incremental',
-    unique_key='employee_id'
+    unique_key='employee_id',
+    incremental_strategy='merge'
 ) }}
 
 {{ get_latest_records(
