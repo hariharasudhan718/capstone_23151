@@ -15,7 +15,7 @@
 {{
     config(materialized='incremental',unique_key='customer_id',constraints={
             'primary_key':['order_id']
-        } )
+        },incremental_strategy='merge' )
 }}
 SELECT 
     SUBSTRING(order_id, 4, LENGTH(order_id))::integer AS order_id,

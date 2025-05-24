@@ -1,7 +1,7 @@
 {{
     config(materialized='incremental', unique_key='supplier_id',constraints={
             'primary_key':['supplier_id']
-        })
+        },incremental_strategy='merge')
 }}
 
 SELECT 

@@ -1,7 +1,7 @@
 {{
     config(materialized='incremental',unique_key='employee_id',constraints={
             'primary_key':['employee_id']
-        })
+        },incremental_strategy='merge')
 }}
 select 
     SUBSTRING(employee_id, 4, LENGTH(employee_id))::integer AS employee_id,

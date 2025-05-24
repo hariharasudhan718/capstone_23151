@@ -1,5 +1,5 @@
 {{
-    config(materialized='incremental', unique_key='campaign_id',constraints={'primary_key':['campaign_id']})
+    config(materialized='incremental', unique_key='campaign_id',constraints={'primary_key':['campaign_id']},incremental_strategy='merge')
 }}
 
 SELECT 

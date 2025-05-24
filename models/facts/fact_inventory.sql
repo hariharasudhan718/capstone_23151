@@ -1,6 +1,6 @@
 {{
   config(
-    materialized = 'incremental',
+    materialized = 'table',
     schema = 'gold_layer'
   )
 }}
@@ -18,12 +18,12 @@ SELECT
 FROM 
     silver_layer.order_transformations o
 JOIN
-    silver_layer_gold_layer.dim_product dp ON dp.product_id = o.product_id
+    gold_layer.dim_product dp ON dp.product_id = o.product_id
 JOIN
-    silver_layer_gold_layer.dim_store st ON st.store_id = o.store_id
+    gold_layer.dim_store st ON st.store_id = o.store_id
 JOIN 
     silver_layer.product_transformations p ON p.product_id = o.product_id
 JOIN 
-    silver_layer_gold_layer.dim_supplier su ON su.supplier_id = p.supplier_id
+    gold_layer.dim_supplier su ON su.supplier_id = p.supplier_id
 GROUP BY
     dp.product_key, st.store_key, su.supplier_key, p.stock_quantity, p.unit_price

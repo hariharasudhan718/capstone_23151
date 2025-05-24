@@ -1,6 +1,7 @@
 {{ config(
     materialized='incremental',
-    unique_key='supplier_id'
+    unique_key='supplier_id',
+    incremental_strategy='merge'
 ) }}
 
 {{ get_latest_records(
