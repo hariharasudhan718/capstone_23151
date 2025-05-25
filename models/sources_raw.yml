@@ -46,7 +46,7 @@ sources:
 
   - name: gold_src
     database: bootcamp_dev_23151
-    schema: silver_layer
+    schema: gold_layer
     tables:
       - name: dim_customer
 

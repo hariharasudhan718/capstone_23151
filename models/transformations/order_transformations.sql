@@ -13,7 +13,7 @@
 
 
 {{
-    config(materialized='incremental',unique_key='customer_id',constraints={
+    config(materialized='table',unique_key='order_id',constraints={
             'primary_key':['order_id']
         },incremental_strategy='merge' )
 }}

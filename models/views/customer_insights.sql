@@ -9,7 +9,7 @@ WITH customer_lifetime_value AS (
         fs.customer_id,
         SUM(fs.total_sales_amount) AS LifetimeValue
     FROM
-        silver_layer_gold_layer.fact_sales AS fs
+        gold_layer.fact_sales AS fs
     GROUP BY
         fs.customer_id
 ),
@@ -19,7 +19,7 @@ customer_purchases AS (
         fs.customer_id,
         COUNT(*) AS PurchaseCount
     FROM
-        silver_layer_gold_layer.fact_sales AS fs
+        gold_layer.fact_sales AS fs
     GROUP BY
         fs.customer_id
 ),
@@ -30,7 +30,7 @@ repeat_purchase_rate AS (
         (COUNT(DISTINCT CASE WHEN cp.PurchaseCount > 1 THEN fs.customer_id END) * 100.0) /
         COUNT(DISTINCT fs.customer_id) AS RepeatPurchaseRate
     FROM
-        silver_layer_gold_layer.fact_sales AS fs
+        gold_layer.fact_sales AS fs
     JOIN
         customer_purchases cp ON fs.customer_id = cp.customer_id
     GROUP BY
@@ -45,9 +45,9 @@ customer_segmentation AS (
         SUM(fs.total_sales_amount) AS TotalSales,
         AVG(fs.total_sales_amount) AS AverageOrderValue
     FROM
-        silver_layer_gold_layer.fact_sales AS fs
+        gold_layer.fact_sales AS fs
     JOIN
-        silver_layer_gold_layer.dim_customer dc ON fs.customer_id = dc.customer_id
+        gold_layer.dim_customer dc ON fs.customer_id = dc.customer_id
     GROUP BY
         fs.customer_id,
         dc.age_segment
@@ -63,7 +63,7 @@ SELECT distinct
     cs.TotalSales,
     cs.AverageOrderValue
 FROM
-    silver_layer_gold_layer.dim_customer dc
+    gold_layer.dim_customer dc
 JOIN
     customer_lifetime_value clv ON dc.customer_id = clv.customer_id
 JOIN
